@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ###############################################################################
-# IsaacLab to mjlab Migration Skill Installer
+# mjlab-skillkit Installer
 # Interactive TUI - Compatible with bash and zsh
 ###############################################################################
 
@@ -16,6 +16,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${_SCRIPT_SOURCE}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+SKILL_SLUG="mjlab-skillkit"
+SHARED_RULES_FILE="$REPO_DIR/shared/${SKILL_SLUG}-rules.md"
+CURSOR_RULES_FILE="$REPO_DIR/adapters/cursor/${SKILL_SLUG}.mdc"
 
 # Colors
 GREEN='\033[0;32m'
@@ -127,7 +130,7 @@ interactive_menu() {
             tput cup 0 0
             echo -en "${BOLD}${BLUE}╔════════════════════════════════════════════════════════════╗${NC}"
             tput cup 1 0
-            echo -en "${BOLD}${BLUE}║     IsaacLab to mjlab Migration Skill - Installer          ║${NC}"
+            echo -en "${BOLD}${BLUE}║              mjlab-skillkit - Installer                    ║${NC}"
             tput cup 2 0
             echo -en "${BOLD}${BLUE}╚════════════════════════════════════════════════════════════╝${NC}"
             
@@ -257,7 +260,7 @@ print_install_summary() {
 }
 
 install_codex() {
-    local dest="${CODEX_HOME:-$HOME/.codex}/skills/isaaclab-to-mjlab"
+    local dest="${CODEX_HOME:-$HOME/.codex}/skills/$SKILL_SLUG"
     mkdir -p "$(dirname "$dest")"
     if [[ "$INSTALL_METHOD" == "symlink" ]]; then
         ln -sf "$REPO_DIR" "$dest" 2>/dev/null || { rm -rf "$dest"; ln -sf "$REPO_DIR" "$dest"; }
@@ -271,12 +274,12 @@ install_codex() {
 
 install_claude() {
     local dir="$HOME/.claude/rules"
-    local file="$dir/isaaclab-to-mjlab.md"
+    local file="$dir/$SKILL_SLUG.md"
     mkdir -p "$dir"
     if [[ "$INSTALL_METHOD" == "symlink" ]]; then
-        ln -sf "$REPO_DIR/shared/isaaclab-to-mjlab-rules.md" "$file" 2>/dev/null || { rm -f "$file"; ln -sf "$REPO_DIR/shared/isaaclab-to-mjlab-rules.md" "$file"; }
+        ln -sf "$SHARED_RULES_FILE" "$file" 2>/dev/null || { rm -f "$file"; ln -sf "$SHARED_RULES_FILE" "$file"; }
     else
-        cp "$REPO_DIR/shared/isaaclab-to-mjlab-rules.md" "$file"
+        cp "$SHARED_RULES_FILE" "$file"
     fi
     ensure_import_line "$HOME/.claude/CLAUDE.md" "@$file"
     echo "[claude] installed: $file"
@@ -285,12 +288,12 @@ install_claude() {
 
 install_gemini() {
     local dir="$HOME/.gemini/rules"
-    local file="$dir/isaaclab-to-mjlab.md"
+    local file="$dir/$SKILL_SLUG.md"
     mkdir -p "$dir"
     if [[ "$INSTALL_METHOD" == "symlink" ]]; then
-        ln -sf "$REPO_DIR/shared/isaaclab-to-mjlab-rules.md" "$file" 2>/dev/null || { rm -f "$file"; ln -sf "$REPO_DIR/shared/isaaclab-to-mjlab-rules.md" "$file"; }
+        ln -sf "$SHARED_RULES_FILE" "$file" 2>/dev/null || { rm -f "$file"; ln -sf "$SHARED_RULES_FILE" "$file"; }
     else
-        cp "$REPO_DIR/shared/isaaclab-to-mjlab-rules.md" "$file"
+        cp "$SHARED_RULES_FILE" "$file"
     fi
     ensure_import_line "$HOME/.gemini/GEMINI.md" "@$file"
     echo "[gemini] installed: $file"
@@ -299,12 +302,12 @@ install_gemini() {
 
 install_cursor() {
     local dir="$PROJECT_DIR/.cursor/rules"
-    local file="$dir/isaaclab-to-mjlab.mdc"
+    local file="$dir/$SKILL_SLUG.mdc"
     mkdir -p "$dir"
     if [[ "$INSTALL_METHOD" == "symlink" ]]; then
-        ln -sf "$REPO_DIR/adapters/cursor/isaaclab-to-mjlab.mdc" "$file" 2>/dev/null || { rm -f "$file"; ln -sf "$REPO_DIR/adapters/cursor/isaaclab-to-mjlab.mdc" "$file"; }
+        ln -sf "$CURSOR_RULES_FILE" "$file" 2>/dev/null || { rm -f "$file"; ln -sf "$CURSOR_RULES_FILE" "$file"; }
     else
-        cp "$REPO_DIR/adapters/cursor/isaaclab-to-mjlab.mdc" "$file"
+        cp "$CURSOR_RULES_FILE" "$file"
     fi
     echo "[cursor] installed: $file"
     record_install "Cursor ($INSTALL_METHOD): $file"
@@ -318,7 +321,7 @@ install_opencode() {
         install_root="$HOME/.config/opencode/skills"
     fi
 
-    local dest_dir="$install_root/isaaclab-to-mjlab"
+    local dest_dir="$install_root/$SKILL_SLUG"
 
     mkdir -p "$install_root"
 

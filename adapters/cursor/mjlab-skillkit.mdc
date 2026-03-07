@@ -1,11 +1,15 @@
 ---
-description: IsaacLab-to-mjlab migration guardrails
+description: mjlab-skillkit guardrails
 globs:
   - "**/*.py"
 alwaysApply: false
 ---
 
-# IsaacLab -> mjlab / mjlab Authoring Guardrails
+# mjlab-skillkit Guardrails
+
+- This skillkit contains two core capabilities:
+  - **IsaacLab Migration Skill** for porting source projects into mjlab-native code
+  - **mjlab Native Skill** for writing new mjlab-native code directly
 
 - Use `mujocolab/anymal_c_velocity` as the migration pattern.
 - This skill can also author new mjlab-native code directly.

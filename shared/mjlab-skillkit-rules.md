@@ -1,4 +1,9 @@
-# IsaacLab -> mjlab Migration Rules
+# mjlab-skillkit Rules
+
+This skillkit packages two core workflows:
+
+- **IsaacLab Migration Skill** for behavior-preserving migration into mjlab-native code
+- **mjlab Native Skill** for writing new mjlab-native tasks and components directly
 
 ## Goal
 

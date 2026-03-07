@@ -1,86 +1,80 @@
-# IsaacLab to mjlab Skill Library
+# mjlab-skillkit
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
-[![Type: Skill Library](https://img.shields.io/badge/Type-Skill%20Library-blue)](#)
-[![Migration: IsaacLab->mjlab](https://img.shields.io/badge/Migration-IsaacLab--to--mjlab-orange)](#)
-[![Tools: Codex | Claude | Gemini | Cursor | OpenCode](https://img.shields.io/badge/Tools-Codex%20%7C%20Claude%20%7C%20Gemini%20%7C%20Cursor%20%7C%20OpenCode-6f42c1)](#)
 
-## Overview
+`mjlab-skillkit` is a promotion-ready skill kit for AI coding assistants (Codex, Claude Code, Gemini CLI, Cursor, OpenCode) built around two core capabilities for `mjlab`:
 
-This repository provides a production-oriented skill library for migrating IsaacLab-only projects to mjlab and for authoring new mjlab-native code directly.
+- **IsaacLab Migration Skill** — port IsaacLab projects into clean, mjlab-native implementations while preserving task behavior.
+- **mjlab Native Skill** — author new mjlab-native tasks, configs, sensors, RL wiring, and mesh workflows directly from local or bundled mjlab docs and examples.
 
-The objective is to preserve task behavior during migration while also making it practical to write new mjlab tasks, configs, manager terms, sensors, RL configs, and registration code from local docs/examples.
+> Previously branded as `isaaclab-to-mjlab`.
 
-It now also ships a modular **mjlab API skill pack** distilled from local `mjlab/docs`, so the agent can load only the relevant API domain during migration (envs, managers, sensors, terrains, RL, task registry, etc.).
+## Positioning
 
-It works even when the current workspace does not contain a local `mjlab/` checkout: the bundled `references/` pages are the first fallback, and raw `mjlab/docs/...` or `mjlab/src/...` paths are treated as optional lookup targets rather than hard requirements.
+- **One skill kit, two high-value workflows** — migration for existing IsaacLab codebases, native authoring for new mjlab development.
+- **mjlab-native output only** — no compatibility layers, no bridge wrappers, no upstream mjlab source modifications.
+- **AI-assistant friendly** — packaged references, install adapters, and on-demand API guidance for real coding sessions.
 
-## Why this is AI-friendly
+## Skill Suite
 
-- **English-first agent-facing docs** so Codex/Claude/Gemini/Cursor/OpenCode can consume the guidance consistently.
-- **Load-on-demand references** so the agent reads only the API slice it needs instead of a monolithic wall of documentation.
-- **Compressed migration gotchas** for the highest-value pitfalls that are easy to miss during IsaacLab -> mjlab ports.
-- **Authoring recipes** for common requests like “add a reward”, “add a sensor”, “register a task”, or “import a mesh”.
-- **Case-study + playbook split** so complex-task guidance stays generic, while tracking remains only a concrete example.
+### 1) IsaacLab Migration Skill
 
-## Refreshed against newer mjlab changes
+Use this skill when the job is to move an IsaacLab environment, task, or project into `mjlab` without losing behavioral intent.
 
-The skill pack now also calls out several newer/upstream mjlab behaviors that are easy to miss when porting older examples:
+- Preserves parity for rewards, observations, actions, commands, reset/events, terminations, and curriculum.
+- Maps IsaacLab concepts to mjlab APIs, managers, sensors, terrains, RL config, and task registration.
+- Enforces mjlab-native outputs instead of compatibility shims.
+- Includes migration rules, API mappings, gotchas, checklists, and complex-task playbooks.
 
-- `EventTermCfg(mode="step")` and related event semantics such as `is_global_time` / `min_step_count_between_reset`
-- `EntityCfg.sort_actuators` when control ordering must follow joint/tendon/site definition order
-- `MetricsTermCfg(func=mdp.mean_action_acc)` in newer upstream velocity-style tasks
-- newer RSL-RL model config conventions (`stochastic`, `init_noise_std`, `noise_std_type`)
+### 2) mjlab Native Skill
 
-## Scope
+Use this skill when the job is to build new mjlab-native code directly.
 
-- Migrate IsaacLab projects to **mjlab-native** code paths.
-- Write new **mjlab-native** tasks/components/configurations directly.
-- Preserve behavior parity for rewards, observations, actions, commands, reset/events, terminations, and curriculum.
-- Avoid compatibility layers.
-- Do not modify `mujocolab/mjlab` upstream source code.
+- Authors new tasks, `EnvCfg` / scene configs, manager terms, sensors, terrain setup, RL config, and task registration.
+- Reuses local mjlab examples first, bundled references second, online docs only as a last resort.
+- Supports direct mesh-import and asset authoring workflows.
+- Helps assistants write code that already matches mjlab structure and public APIs.
 
-## Supported Tools
+## What’s Included
 
-- Codex
-- Claude Code
-- Gemini CLI
-- Cursor
-- OpenCode
+- **Migration references** — rules, mappings, patterns, gotchas, checklist, and task migration playbooks.
+- **mjlab API pack** — focused docs for envs, managers, scene, sensors, simulation, terrains, RL, viewer, and tasks.
+- **Authoring workflow** — step-by-step native mjlab guidance for new code.
+- **Assistant adapters** — installation surfaces for Codex, Claude Code, Gemini CLI, Cursor, and OpenCode.
+- **Promotion & launch kits** — ready-to-paste copy in `PROMO.md` and `LAUNCH.md`.
+
+## Who It’s For
+
+- Teams migrating IsaacLab task stacks to `mjlab`
+- Engineers building new `mjlab` environments from scratch
+- AI-assisted coding workflows that need precise, bounded mjlab guidance
+- Internal platform or research teams standardizing mjlab development patterns
 
 ## Installation
 
-### Interactive Mode (Recommended)
+### Interactive Mode
 
-Run the installer without arguments to launch an interactive terminal UI:
+Run the installer to launch the interactive TUI:
 
 ```bash
-cd isaaclab-to-mjlab
+cd mjlab-skillkit
 bash scripts/install.sh
 ```
 
-The TUI lets you:
+The TUI supports:
 
-- **Select target tools** — Codex, Claude Code, Gemini CLI, Cursor, OpenCode (multi-select with `Space`)
-- **Choose installation method** — `copy` (production) or `symlink` (development/iterate-in-place)
-- **Preview target paths** before confirming
-
-Controls:
+- Multi-select target tools (Codex / Claude Code / Gemini CLI / Cursor / OpenCode)
+- Choose install method: `copy` (production) or `symlink` (development)
+- Preview target paths before confirming
 
 | Key | Action |
 |-----|--------|
 | `↑` / `↓` | Navigate |
 | `Space` | Toggle selection / switch method |
 | `Enter` | Confirm and install |
-| `Q` | Quit without installing |
+| `Q` | Quit |
 
-After pressing `Enter`, the installer runs all selected tools and prints a summary of installed paths.
-
----
-
-### CLI Mode (Per-tool)
-
-Prefer non-interactive usage? Pass flags directly:
+### CLI Mode
 
 ```bash
 # Install to a single tool
@@ -89,97 +83,59 @@ bash scripts/install.sh --tool claude
 # Install to all tools at once
 bash scripts/install.sh --tool all
 
-# Use symlink instead of copy (handy when iterating on the rules)
+# Use symlink (convenient when iterating on rules)
 bash scripts/install.sh --tool claude --method symlink
 
-# Specify a project directory for Cursor / OpenCode
+# Specify a project directory (Cursor / OpenCode)
 bash scripts/install.sh --tool cursor --project /path/to/your/project
 ```
 
-#### Codex (global)
+### Install Paths
 
-```bash
-bash scripts/install.sh --tool codex
-```
+| Tool | Command | Install Location |
+|------|---------|-----------------|
+| Codex | `--tool codex` | `${CODEX_HOME:-~/.codex}/skills/mjlab-skillkit` |
+| Claude Code | `--tool claude` | `~/.claude/rules/mjlab-skillkit.md` |
+| Gemini CLI | `--tool gemini` | `~/.gemini/rules/mjlab-skillkit.md` |
+| Cursor | `--tool cursor` | `<project>/.cursor/rules/mjlab-skillkit.mdc` |
+| OpenCode | `--tool opencode` | `~/.config/opencode/skills/mjlab-skillkit/` or `<project>/.opencode/skills/mjlab-skillkit/` |
 
-Install location:
-- `${CODEX_HOME:-~/.codex}/skills/isaaclab-to-mjlab`
+> `codex`, `claude`, and `gemini` install to global user paths by default. `cursor` and `opencode` also support `--project` for project-local installs.
 
-#### Claude Code (global)
+## Scope
 
-```bash
-bash scripts/install.sh --tool claude
-```
-
-Install locations:
-- `~/.claude/rules/isaaclab-to-mjlab.md`
-- import line added to `~/.claude/CLAUDE.md`
-
-#### Gemini CLI (global)
-
-```bash
-bash scripts/install.sh --tool gemini
-```
-
-Install locations:
-- `~/.gemini/rules/isaaclab-to-mjlab.md`
-- import line added to `~/.gemini/GEMINI.md`
-
-#### Cursor (project-scoped)
-
-```bash
-bash scripts/install.sh --tool cursor --project /path/to/your/project
-```
-
-Or, from inside your project:
-
-```bash
-bash /path/to/isaaclab-to-mjlab/scripts/install.sh --tool cursor
-```
-
-Install location:
-- `<project>/.cursor/rules/isaaclab-to-mjlab.mdc`
-
-Notes:
-- If `--project` is omitted, installer uses current git repository root; if unavailable, it uses current directory.
-- `codex`, `claude`, and `gemini` install to global user paths by default.
-- `cursor` remains project-scoped by design.
-
-#### OpenCode
-
-```bash
-bash scripts/install.sh --tool opencode
-bash scripts/install.sh --tool opencode --project /path/to/your/project
-```
-
-Install locations:
-- global: `~/.config/opencode/skills/isaaclab-to-mjlab/`
-- project: `<project>/.opencode/skills/isaaclab-to-mjlab/`
-- installed skill payload mirrors the repository layout, such as `SKILL.md`, `README.md`, `references/`, `shared/`, and `scripts/`
-
-Notes:
-- If `--project` is omitted, OpenCode installs globally to `~/.config/opencode/skills/isaaclab-to-mjlab/`.
-- If `--project` is provided, OpenCode installs into that project under `.opencode/skills/isaaclab-to-mjlab/`.
-- The installer prints an install summary with the exact destination path for each selected tool.
+- Migrate IsaacLab projects to **mjlab-native** code.
+- Author new mjlab-native tasks, components, and configurations from scratch.
+- Preserve behavior parity where migration is the goal.
+- Keep outputs aligned with public mjlab APIs and real task examples.
 
 ## Repository Structure
 
 ```text
-isaaclab-to-mjlab/
-├── SKILL.md
-├── agents/openai.yaml
-├── references/
-│   ├── mjlab-api-pack.md
-│   ├── mjlab-api-index.md
-│   ├── mjlab-authoring-workflow.md
-│   ├── mjlab-authoring-recipes.md
-│   ├── mjlab-api-*.md
-│   └── mjlab-mdp-builtins.md
-├── shared/isaaclab-to-mjlab-rules.md
-├── adapters/cursor/isaaclab-to-mjlab.mdc
+mjlab-skillkit/
+├── SKILL.md                             # Main skillkit entry point
+├── PROMO.md                             # Promotion copy
+├── LAUNCH.md                            # GitHub / release / social launch copy
+├── agents/openai.yaml                   # Codex/OpenAI agent config
+├── references/                          # Domain-specific reference docs
+│   ├── migration-rules.md               #   Migration rules
+│   ├── mapping.md                       #   Field mapping table
+│   ├── patterns.md                      #   Common migration patterns
+│   ├── checklist.md                     #   Migration checklist
+│   ├── migration-gotchas.md             #   Common pitfalls
+│   ├── mjlab-api-index.md               #   API index
+│   ├── mjlab-api-*.md                   #   Per-domain API references
+│   ├── mjlab-mdp-builtins.md            #   MDP built-in functions index
+│   ├── mjlab-authoring-workflow.md      #   Authoring workflow
+│   ├── mjlab-authoring-recipes.md       #   Authoring recipes
+│   ├── mjlab-mesh-import-guidelines.md  #   Mesh import guide
+│   ├── complex-task-migration-playbook.md
+│   └── tracking-case-study.md
+├── shared/mjlab-skillkit-rules.md       # Shared cross-tool rules
+├── adapters/cursor/mjlab-skillkit.mdc   # Cursor adapter format
 └── scripts/
-    ├── install.sh
-    └── package.sh
+    ├── install.sh                       # Installer
+    └── package.sh                       # Release packager
 ```
 
 ## Release Packaging
@@ -188,18 +144,17 @@ isaaclab-to-mjlab/
 bash scripts/package.sh v0.1.0
 ```
 
-Generated files:
-- `dist/isaaclab-to-mjlab-v0.1.0.tar.gz`
-- `dist/isaaclab-to-mjlab-v0.1.0.zip`
+Generates:
+
+- `dist/mjlab-skillkit-v0.1.0.tar.gz`
+- `dist/mjlab-skillkit-v0.1.0.zip`
+
+## Promotion Notes
+
+- Use `PROMO.md` for short-form and long-form launch copy.
+- Present the project as a **skill kit** rather than a single migration helper.
+- Lead with the two-skill story: **migration** + **native authoring**.
 
 ## License
 
-This project is released under the **MIT License**.
-
-See [`LICENSE`](./LICENSE).
-
-## References
-
-- Migration pattern: `mujocolab/anymal_c_velocity`
-- mjlab repository: `mujocolab/mjlab`
-- IsaacLab repository: `isaac-sim/IsaacLab`
+MIT License — see `LICENSE`.

@@ -1,9 +1,20 @@
 ---
-name: isaaclab-to-mjlab
-description: Use when asked to migrate IsaacLab projects to mjlab, compare IsaacLab and mjlab APIs, import meshes into mjlab tasks, or author new mjlab-native tasks/components directly from local or bundled mjlab docs and examples. Prefer mjlab public APIs, preserve behavior in migration mode, and avoid compatibility layers.
+name: mjlab-skillkit
+description: Use when asked to migrate IsaacLab projects to mjlab, compare IsaacLab and mjlab APIs, import meshes into mjlab tasks, or author new mjlab-native tasks/components directly from local or bundled mjlab docs and examples. This skillkit includes an IsaacLab Migration Skill and an mjlab Native Skill. Prefer mjlab public APIs, preserve behavior in migration mode, and avoid compatibility layers.
 ---
 
-# IsaacLab to mjlab + mjlab Authoring
+# mjlab-skillkit
+
+## Skill Suite
+
+- **IsaacLab Migration Skill** (`migrate`)
+  - Use when there is an IsaacLab source project to port into mjlab-native code.
+  - Priority: preserve task behavior while translating APIs, config structure, and registration.
+- **mjlab Native Skill** (`author`)
+  - Use when writing new mjlab-native tasks, configs, managers, sensors, terrain, RL wiring, or mesh workflows directly.
+  - Priority: follow mjlab public APIs, existing task patterns, and bundled references.
+
+> Previously branded as `isaaclab-to-mjlab`.
 
 ## Official Repositories
 

@@ -1,6 +1,6 @@
 # Claude Code Adapter
 
-This adapter installs the shared migration rules into Claude Code memory:
+This adapter installs the shared skillkit rules into Claude Code memory:
 
-- Rule file: `~/.claude/rules/isaaclab-to-mjlab.md`
+- Rule file: `~/.claude/rules/mjlab-skillkit.md`
 - Import entry in: `~/.claude/CLAUDE.md`
