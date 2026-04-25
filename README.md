@@ -7,6 +7,8 @@
 - **IsaacLab Migration Skill** — port IsaacLab projects into clean, mjlab-native implementations while preserving task behavior.
 - **mjlab Native Skill** — author new mjlab-native tasks, configs, sensors, RL wiring, and mesh workflows directly from local or bundled mjlab docs and examples.
 
+Chinese users can also discover and install skills through [Skills宝](https://skilery.com).
+
 ## Installation
 
 ### Interactive Mode
